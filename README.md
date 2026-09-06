@@ -50,40 +50,40 @@
 <details>
 <summary><strong>Arch</strong> (17)</summary>
 
-- **[binoymanoj/dotfiles](https://github.com/binoymanoj/dotfiles)** — `anonymous`  
 - **[NotAShelf/dotfiles](https://github.com/NotAShelf/dotfiles)** — `NotAshelf`  
   This is where I periodically throw my configuration files. You might be here for something specific, in that case I recommend that you scroll below for the repository map and find what you are looking for
-- **[plutonium-sh/lazerbar](https://github.com/plutonium-sh/lazerbar)** — `plutonyumm`  
-  it's cool, and it has a lot of features
 - **[zhaleff/BlackNode](https://github.com/zhaleff/BlackNode)** — `Zhaleff`  
   BlackNode a simple, basic dotfile for hyprland, hyprland configurations, nvim, etc
+- **[HeroHunterIguess/Darkblue-breakcore-Hyprland](https://github.com/HeroHunterIguess/Darkblue-breakcore-Hyprland/tree/main)** — `raylee`  
+  Breakcore / alt future styled rice 
+- **[binoymanoj/dotfiles](https://github.com/binoymanoj/dotfiles)** — `anonymous`  
 - **[Cybersnake223/Hypr](https://github.com/Cybersnake223/Hypr)** — `cybersnake223`  
   A minimal, keyboard-driven Hyprland dotfiles setup for Arch Linux. Laptop-first. Script-heavy. Zero bloat. 
 - **[zhaleff/BlackNode](https://github.com/zhaleff/BlackNode)** — `zhaleff`  
   A classic dotfile built with the traditional dotfile staples of the past, featuring dynamic colors and a touch of Material You 3.
 - **[zhaleff/hyprcraft](https://github.com/zhaleff/hyprcraft)** — `Zhaleff`  
   Dotfile minimal yet beautiful, simple yet fast, so you can build your own dotfile
-- **[na-ive/nandoroid-shell](https://github.com/na-ive/nandoroid-shell)** — `na-ive`  
-   quickshell based hyprland shell, Android custom ROM inspired. 
-- **[doccnova/serene-hyprland](https://codeberg.org/doccnova/serene-hyprland)** — `doccnova`  
-  An Artix-centered Hyprland rice (that can be adapted for vanilla Arch by changing a few config lines) focused on simplicity, user-friendliness and easy install/management thanks to GNU Stow. Features pre-configured "taskbar/scratchpad" special workspace (Super+Z), dynamic colors via Matugen and Wallust, scripts for installing/deleting packages and changing colors, powered by fzf and YAD, clock widget on the desktop and (coming soon) easy settings script.
-- **[HeroHunterIguess/Darkblue-breakcore-Hyprland](https://github.com/HeroHunterIguess/Darkblue-breakcore-Hyprland/tree/main)** — `raylee`  
-  Breakcore / alt future styled rice 
-- **[Grey-007/Hyprmat-dots](https://github.com/Grey-007/Hyprmat-dots)** — `Grey-007`  
 - **[AdiKsOnDev/Monoland](https://github.com/AdiKsOnDev/Monoland)** — `AdiKsOn`  
   A Monochromatic themed Hyprland rice with Quickshell widgets. 
 Sleek animations, MaterialUI-style components, dynamic color-detection based
 on the selected Wallpaper. 
-- **[nickjj/dotfriedrice](https://github.com/nickjj/dotfriedrice)** — `nickjj`  
-  An opinionated but customizable set of configs and scripts designed to help you quickly set up your system. It's aimed at anyone who deeply cares about how they use computers (developers, power users, etc.).
 - **[Aktyn/hyprland-setup](https://github.com/Aktyn/hyprland-setup)** — `Aktyn`  
   It's a comprehensive, feature-rich Hyprland configuration with Quickshell integration, custom SDDM theme, and carefully selected applications for an optimal desktop experience.
 This project is made for personal use although I'm happy to implement additional features upon request.
-- **[ESHAYAT102/dotfiles](https://github.com/ESHAYAT102/dotfiles)** — `Eshayat Al-Wasiu`  
-  Minimal Omarchy rice
 - **[berthosefin/dots](https://github.com/berthosefin/dots)** — `berthosefin`  
 - **[cebem1nt/dotfiles](https://github.com/cebem1nt/dotfiles)** — `cebem1nt`  
   Modular, well documented hyprland dotfiles built with classic rofi, swaync and waybar. Also incudes a light & dark theme, a collection of wallpapers and scripts. 
+- **[Grey-007/Hyprmat-dots](https://github.com/Grey-007/Hyprmat-dots)** — `Grey-007`  
+- **[doccnova/serene-hyprland](https://codeberg.org/doccnova/serene-hyprland)** — `doccnova`  
+  An Artix-centered Hyprland rice (that can be adapted for vanilla Arch by changing a few config lines) focused on simplicity, user-friendliness and easy install/management thanks to GNU Stow. Features pre-configured "taskbar/scratchpad" special workspace (Super+Z), dynamic colors via Matugen and Wallust, scripts for installing/deleting packages and changing colors, powered by fzf and YAD, clock widget on the desktop and (coming soon) easy settings script.
+- **[nickjj/dotfriedrice](https://github.com/nickjj/dotfriedrice)** — `nickjj`  
+  An opinionated but customizable set of configs and scripts designed to help you quickly set up your system. It's aimed at anyone who deeply cares about how they use computers (developers, power users, etc.).
+- **[na-ive/nandoroid-shell](https://github.com/na-ive/nandoroid-shell)** — `na-ive`  
+   quickshell based hyprland shell, Android custom ROM inspired. 
+- **[ESHAYAT102/dotfiles](https://github.com/ESHAYAT102/dotfiles)** — `Eshayat Al-Wasiu`  
+  Minimal Omarchy rice
+- **[plutonium-sh/lazerbar](https://github.com/plutonium-sh/lazerbar)** — `plutonyumm`  
+  it's cool, and it has a lot of features
 
 </details>
 
@@ -124,10 +124,10 @@ This project is made for personal use although I'm happy to implement additional
 <details>
 <summary><strong>Arch</strong> (2)</summary>
 
-- **[Jotalea/i3-dots](https://github.com/Jotalea/i3-dots)** — `Jotalea`  
-  this rice is inspired by the Geometry Dash level "Nullscapes", with the grayscale low-poly mountains background.
 - **[sajidbytes/CLUNUX](https://github.com/sajidbytes/CLUNUX)** — `SajidBytes`  
   This is my personal rice of i3wm with a warm orange gruvbox like theme. I've decided to make this after CLU from TRON.
+- **[Jotalea/i3-dots](https://github.com/Jotalea/i3-dots)** — `Jotalea`  
+  this rice is inspired by the Geometry Dash level "Nullscapes", with the grayscale low-poly mountains background.
 
 </details>
 
