@@ -34,37 +34,17 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const ip = await hmacHex(clientIp(req))
-
     const supabase = createClient(
       Deno.env.get('SUPABASE_URL')!,
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     )
 
+    const ipHash = await hmacHex(clientIp(req))
+
     if (req.method === 'GET') {
-      const url = new URL(req.url)
-      const riceId = url.searchParams.get('rice_id')
-      if (!riceId) throw new Error('rice_id is required')
-
-      const { data, error } = await supabase.rpc('get_vote', {
-        p_rice_id: riceId,
-        p_ip: ip,
-      })
-      if (error) throw error
-
-      return new Response(JSON.stringify({ vote: data }), {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
-    }
-
-    if (req.method === 'POST') {
-      const { rice_id, vote_type } = await req.json()
-      if (!rice_id || !vote_type) throw new Error('rice_id and vote_type are required')
-
-      const { data, error } = await supabase.rpc('cast_vote', {
-        p_rice_id: rice_id,
-        p_ip: ip,
-        p_vote_type: vote_type,
+      const { data, error } = await supabase.rpc('check_rate_limit', {
+        p_ip: ipHash,
+        p_cooldown_minutes: Number(Deno.env.get('RATE_LIMIT_MINUTES') ?? 60),
       })
       if (error) throw error
 

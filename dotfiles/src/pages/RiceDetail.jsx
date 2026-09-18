@@ -119,18 +119,6 @@ export default function RiceDetail() {
   const [voting, setVoting] = useState(false)
   const [lightbox, setLightbox] = useState(false)
 
-  async function getIpHash() {
-    try {
-      const res = await fetch('https://ifconfig.me/ip')
-      const ip = await res.text()
-      const buf = new TextEncoder().encode(ip.trim())
-      const hash = await crypto.subtle.digest('SHA-256', buf)
-      return Array.from(new Uint8Array(hash)).map((b) => b.toString(16).padStart(2, '0')).join('')
-    } catch {
-      return 'unknown'
-    }
-  }
-
   useEffect(() => {
     async function fetchRice() {
       setLoading(true)

@@ -7,6 +7,35 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
+function clientIp(req) {
+  return (
+    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
+    req.headers.get("cf-connecting-ip") ||
+    "unknown"
+  );
+}
+
+async function hmacHex(value) {
+  const secret = Deno.env.get("IP_HASH_SECRET");
+  if (!secret) throw new Error("IP_HASH_SECRET is not configured.");
+  const enc = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    "raw",
+    enc.encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+  const sig = await crypto.subtle.sign(
+    "HMAC",
+    key,
+    enc.encode(value.trim().toLowerCase())
+  );
+  return Array.from(new Uint8Array(sig))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", {
@@ -82,6 +111,14 @@ serve(async (req) => {
     if (error) {
       throw error;
     }
+
+    const ipHash = await hmacHex(clientIp(req));
+
+    const { error: rateLimitError } = await supabase.rpc(
+      "record_submission_attempt",
+      { p_ip: ipHash }
+    );
+    if (rateLimitError) console.error(rateLimitError);
 
     return new Response(
       JSON.stringify({
