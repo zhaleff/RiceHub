@@ -120,12 +120,16 @@ The public gallery only queries documents where `status == 'approved'`, so nothi
 
 The project uses Vite's environment variable system. All sensitive keys live in a `.env` file at the project root and are never committed to the repository. Variables must be prefixed with `VITE_` to be accessible in the browser.
 
+A template with all variables is available in `.env.example`.
+
 ```
 VITE_SUPABASE_URL=
 VITE_SUPABASE_ANON_KEY=
-VITE_UPLOADCARE_PUBLIC_KEY=
-VITE_UPLOADCARE_CDN_BASE=
+VITE_IMGBB_API_KEY=
+VITE_TURNSTILE_SITE_KEY=
 ```
+
+The rate limit (one submission per hour by default) is enforced server-side by the `rate-limit` edge function via `RATE_LIMIT_MINUTES` in its function secrets.
 
 &nbsp;
 
