@@ -94,11 +94,9 @@ export default function AdminSidebar({ email, pendingCount, onSignOut }) {
       </div>
 
       <nav className="flex-1 overflow-y-auto px-4 pb-6 flex flex-col gap-7">
-        {NAV_SECTIONS.map((section) => (
+        {NAV_SECTIONS.map((section, i) => (
           <div key={section.label} className="flex flex-col gap-1">
-            <p className="px-4 pb-2 text-[10px] uppercase tracking-[0.22em] text-muted">
-              {section.label}
-            </p>
+            {i > 0 && <div className="mb-5 border-t border-border" />}
             {section.items.map((item) => (
               <NavButton key={item.id} item={item} badge={pendingCount} />
             ))}
