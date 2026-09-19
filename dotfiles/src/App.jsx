@@ -7,7 +7,7 @@ import ScrollToTop from './components/ScrollToTop'
 import Footer from './components/Footer'
 const Home = lazy(() => import('./pages/Home'))
 const About = lazy(() => import('./pages/About'))
-const Submit = lazy(() => import('./app/submit'))
+const Submit = lazy(() => import('./pages/Submit'))
 const RiceDetail = lazy(() => import('./pages/RiceDetail'))
 const Admin = lazy(() => import('./pages/Admin'))
 const Gallery = lazy(() => import('./pages/Gallery'))
