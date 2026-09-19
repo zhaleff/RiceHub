@@ -104,7 +104,7 @@ export default function AdminSidebar({ email, pendingCount, onSignOut }) {
         ))}
       </nav>
 
-      <div className="border-t border-border px-4 py-5 flex flex-col gap-2">
+      <div className="px-4 py-5 flex flex-col gap-2">
         <NavLink
           to="/"
           target="_blank"
@@ -115,7 +115,7 @@ export default function AdminSidebar({ email, pendingCount, onSignOut }) {
         </NavLink>
 
         <div className="flex items-center gap-3 px-4 py-3">
-          <div className="w-9 h-9 rounded-xl bg-surface-3 flex items-center justify-center text-[12px] font-semibold text-accent flex-shrink-0">
+          <div className="w-9 h-9 rounded-xl border border-border flex items-center justify-center text-[12px] font-semibold text-accent flex-shrink-0">
             {email?.[0]?.toUpperCase() ?? 'A'}
           </div>
           <div className="min-w-0 flex-1">
