@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async'
 
-const SITE_NAME = 'Awesome Dotfiles'
-const SITE_URL = 'https://awesomedotfiles.vercel.app'
-const DEFAULT_DESCRIPTION = 'The central hub for Linux desktop configurations. Discover setups, color palettes, and dotfiles shared by the community.'
+const SITE_NAME = 'RiceHub'
+const SITE_URL = 'https://ricehubx.vercel.app'
+const DEFAULT_DESCRIPTION = 'The community hub for Linux desktop configurations. Discover setups, color palettes, and dotfiles shared by the community.'
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.png`
 
 export default function SEO({
@@ -38,7 +38,7 @@ export default function SEO({
     url: SITE_URL,
     logo: `${SITE_URL}/favicon.png`,
     sameAs: [
-      'https://github.com/zhaleff/Awesome-Dotfiles',
+      'https://github.com/zhaleff/RiceHub',
       'https://reddit.com/r/unixporn',
     ],
   }
