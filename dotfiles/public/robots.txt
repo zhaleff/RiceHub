@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /admin/*
 
-Sitemap: https://awesomedotfiles.vercel.app/sitemap.xml
+Sitemap: https://ricehubx.vercel.app/sitemap.xml
