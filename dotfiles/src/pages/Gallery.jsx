@@ -21,10 +21,10 @@ export default function Gallery() {
         className="pt-36 pb-16"
       >
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-          <h1 className="text-5xl sm:text-7xl font-semibold tracking-[-0.04em] leading-[0.95] text-text">
+          <h1 className="text-8xl sm:text-7xl lg:text-8xl font-semibold tracking-[-0.04em] leading-[0.95] text-text">
             Dotfiles <span className="text-accent">Gallery</span>
           </h1>
-          <p className="text-[15px] text-text-dim max-w-xs leading-relaxed lg:mb-2">
+          <p className="text-xl text-text-dim max-w-xs leading-relaxed lg:mb-2">
             Every approved setup from the community — filter by WM, distro, or sort however you want.
           </p>
         </div>
