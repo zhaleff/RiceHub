@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import SEO from '../components/SEO'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 
 const EASE = [0.22, 1, 0.36, 1]
 
@@ -55,6 +57,7 @@ function Section({ number, title, children }) {
 export default function About() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-32 pb-16">
+      <Navbar />
       <SEO
         title="About"
         description="Learn about RiceHub, a community-maintained gallery for Linux desktop configurations. Discover the tech stack, submission guidelines, and how to share your own rice."
@@ -152,6 +155,7 @@ export default function About() {
           </ul>
         </section>
       </motion.div>
+      <Footer />
     </div>
   )
 }

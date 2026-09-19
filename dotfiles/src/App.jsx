@@ -2,9 +2,7 @@ import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { AuthProvider } from './context/AuthContext'
-import Navbar from './components/Navbar'
 import ScrollToTop from './components/ScrollToTop'
-import Footer from './components/Footer'
 const Home = lazy(() => import('./pages/Home'))
 const About = lazy(() => import('./pages/About'))
 const Submit = lazy(() => import('./pages/Submit'))
@@ -28,7 +26,6 @@ export default function App() {
       <ScrollToTop />
       <AuthProvider>
         <div className="min-h-screen flex flex-col bg-[var(--color-surface)]">
-          <Navbar />
           <main className="flex-1">
             <Suspense fallback={<PageLoader />}>
               <Routes>
@@ -39,11 +36,9 @@ export default function App() {
                 <Route path="/rice/:slug" element={<RiceDetail />} />
                 <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/admin" element={<Admin />} />
-
               </Routes>
             </Suspense>
           </main>
-          <Footer />
         </div>
         <Toaster
           position="bottom-right"

@@ -1,10 +1,13 @@
 import { motion } from 'framer-motion'
 import RiceGrid from '../components/RiceGrid'
 import SEO from '../components/SEO'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 
 export default function Gallery() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <Navbar />
       <SEO
         title="Dotfiles Gallery"
         description="Browse every approved Linux desktop setup from the community. Filter by window manager, distro, or sort by popularity. Find your next rice inspiration."
@@ -33,6 +36,7 @@ export default function Gallery() {
       <section className="pb-32">
         <RiceGrid defaultSort="recent" />
       </section>
+      <Footer />
     </div>
   )
 }

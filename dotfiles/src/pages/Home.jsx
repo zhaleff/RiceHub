@@ -5,12 +5,15 @@ import { supabase } from '../lib/supabase'
 import SEO from '../components/SEO'
 import Button from "../components/Button"
 import RiceCard from '../components/RiceCard'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 
 const EASE = [0.22, 1, 0.36, 1]
 
 export default function Home() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <Navbar />
       <SEO
         title="RiceHub — Linux Dotfiles, Rices & Desktop Configurations Gallery"
         description="Discover and share Linux desktop configurations, color palettes, and dotfiles from the community. Browse rices for Hyprland, i3, Sway, and more."
@@ -63,6 +66,7 @@ export default function Home() {
 
         <RecentPreviews />
       </motion.section>
+      <Footer />
     </div>
   )
 }
