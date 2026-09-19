@@ -28,8 +28,8 @@ function RiceReviewCard({ rice, isActing, onApprove, onReject }) {
     <div className="rounded-2xl bg-surface-2 overflow-hidden">
       <div className="grid grid-cols-1 md:grid-cols-[240px_1fr]">
         <div className="aspect-video md:aspect-auto bg-surface-3 relative">
-          {rice.image_url ? (
-            <img src={rice.image_url} alt={rice.title} className="w-full h-full object-cover" />
+          {rice.thumbnail_url || rice.image_url ? (
+            <img src={rice.thumbnail_url || rice.image_url} alt={rice.title} className="w-full h-full object-cover" loading="lazy" decoding="async" />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
               <span className="text-[11px] text-muted">No image</span>
