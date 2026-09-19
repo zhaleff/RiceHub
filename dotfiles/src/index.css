@@ -5,21 +5,20 @@
 @import "@fontsource/playfair-display/700.css";
 
 @theme {
-  --color-accent: #D9A25E;
-  --color-accent-dim: #B8863F;
+  --color-accent: #F5F5F0;
+  --color-accent-dim: #C9C9C0;
 
-  --color-surface: #0E0D0B;
-  --color-surface-2: #16140F;
-  --color-surface-3: #1E1B14;
+  --color-surface: #0A0A0A;
+  --color-surface-2: #161616;
+  --color-surface-3: #212121;
 
-  --color-border: #2B271D;
+  --color-border: #2E2E2E;
 
-  --color-text: #EDEAE3;
-  --color-text-dim: #A69E8E;
-  --color-muted: #6B6355;
-
-
+  --color-text: #F5F5F0;
+  --color-text-dim: #9E9E96;
+  --color-muted: #616158;
 }
+
 
 * {
   box-sizing: border-box;
