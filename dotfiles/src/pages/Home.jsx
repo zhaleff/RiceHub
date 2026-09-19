@@ -9,23 +9,20 @@ import SEO from '../components/SEO'
 const EASE = [0.22, 1, 0.36, 1]
 
 export default function Home() {
-  const [total, setTotal] = useState(null)
-
-  useEffect(() => {
-    supabase
-      .from('rices')
-      .select('*', { count: 'exact', head: true })
-      .then(({ count }) => setTotal(count))
-      .catch(() => { })
-  }, [])
-
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6">
       <SEO
-        title="Linux Desktop Configurations & Dotfiles Gallery"
+        title="RiceHub — Linux Dotfiles, Rices & Desktop Configurations Gallery"
         description="Discover and share Linux desktop configurations, color palettes, and dotfiles from the community. Browse rices for Hyprland, i3, Sway, and more."
         url="/"
         type="website"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: 'RiceHub',
+          url: 'https://ricehub.vercel.app',
+          description: 'Community gallery for Linux desktop configurations — dotfiles, rices, and color palettes for Hyprland, i3, Sway, bspwm, dwm, and more.',
+        }}
       />
       <section className="pt-36 pb-24">
         <motion.div
@@ -33,14 +30,13 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: EASE }}
         >
-
           <div className="flex flex-col lg:flex-row lg:items-end gap-10 mb-10">
             <h1 className="text-6xl sm:text-7xl lg:text-8xl font-semibold tracking-[-0.05em] leading-[0.9] text-text">
-              Built for <br />
-              <span className="text-accent">you</span>
+              Linux dotfiles, <br />
+              <span className="text-accent">shared</span>
             </h1>
             <p className="text-base text-text-dim max-w-sm leading-relaxed lg:mb-2">
-              The central hub for Linux desktop configurations. Discover setups, color palettes, and dotfiles from the community.
+              The community hub for Linux desktop configurations. Browse rices, color palettes, and dotfiles for Hyprland, i3, Sway, and more.
             </p>
           </div>
 
@@ -58,20 +54,10 @@ export default function Home() {
             >
               Submit your rice
             </Link>
-            <a
-              href="https://reddit.com/r/unixporn"
-              target="_blank"
-              rel="noreferrer"
-              className="group flex items-center gap-1.5 px-6 py-3.5  rounded-full hover:scale-110 transition-transform duration-400  text-muted hover:text-text-dim text-[14px] transition-colors duration-200 cursor-pointer"
-            >
-              r/unixporn
-              <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="w-2.5 h-2.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-            </a>
+            
           </div>
         </motion.div>
       </section>
-
-      <div className="border-t border-border mb-20" />
 
       <motion.section
         initial={{ opacity: 0, y: 20 }}
@@ -86,7 +72,7 @@ export default function Home() {
           </div>
           <Link
             to="/gallery"
-            className="group flex items-center gap-1.5 text-[13px] text-text-dim hover:text-accent hover:scale-110 transition-colors duration-200 cursor-pointer flex-shrink-0"
+            className="group flex items-center gap-1.5 text-[13px] text-text-dim hover:text-accent hover:scale-95 transition-colors duration-200 cursor-pointer flex-shrink-0"
           >
             View all
             <FontAwesomeIcon icon={faArrowRight} className="w-2.5 h-2.5 transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -105,12 +91,12 @@ function RecentPreviews() {
   useEffect(() => {
     supabase
       .from('rices')
-      .select('id, slug, title, author, image_url, wm, distro')
+      .select('id, slug, title, author, thumbnail_url, image_url, wm, distro')
       .eq('status', 'approved')
       .order('created_at', { ascending: false })
       .limit(6)
       .then(({ data }) => setRices(data ?? []))
-      .catch(() => { })
+      .catch(() => {})
   }, [])
 
   if (!rices.length) {
@@ -134,12 +120,13 @@ function RecentPreviews() {
         >
           <Link to={`/rice/${rice.slug}`} className="group block rounded-2xl overflow-hidden bg-surface-2">
             <div className="aspect-video overflow-hidden relative bg-surface-3">
-              {rice.image_url ? (
+              {rice.thumbnail_url || rice.image_url ? (
                 <img
-                  src={rice.image_url}
+                  src={rice.thumbnail_url || rice.image_url}
                   alt={rice.title}
                   className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                   loading="lazy"
+                  decoding="async"
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
