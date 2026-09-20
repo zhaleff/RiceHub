@@ -57,7 +57,7 @@ export default function Navbar() {
               ISLAND,
             )}
           >
-            <img src={logo} alt="RiceHub logo" className="h-12 mb-2 w-auto" />
+            <img src={logo} alt="RiceHub logo" className="h-8 mb-2 w-auto" />
           </Link>
 
           <nav
