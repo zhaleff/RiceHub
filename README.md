@@ -1,7 +1,7 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/ricehub.png">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/ricehub-icon.png">
   <img src="assets/ricehub-black.png" alt="RiceHub" width="320">
 </picture>
 
