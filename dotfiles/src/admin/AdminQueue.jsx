@@ -2,9 +2,10 @@ import { useOutletContext } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
-import { ReviewCard, EmptyState, PageHeader } from './ui'
-
-const EASE = [0.16, 1, 0.3, 1]
+import ReviewCard from './components/ReviewCard'
+import EmptyState from './components/EmptyState'
+import PageHeader from './components/PageHeader'
+import { EASE } from './components/tokens'
 
 export default function AdminQueue() {
   const { pending, loading, reload, approve, reject, acting } = useOutletContext()

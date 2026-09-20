@@ -2,7 +2,11 @@ import { useMemo } from 'react'
 import { Link, useOutletContext } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInbox, faCircleCheck, faThumbsUp, faChartSimple } from '@fortawesome/free-solid-svg-icons'
-import { StatCard, ActivityChart, RecentRow, Panel, PageHeader } from './ui'
+import StatCard from './components/StatCard'
+import ActivityChart from './components/ActivityChart'
+import RecentRow from './components/RecentRow'
+import Panel from './components/Panel'
+import PageHeader from './components/PageHeader'
 
 export default function AdminDashboard() {
   const { pending, approved, loading, reload } = useOutletContext()
@@ -40,14 +44,14 @@ export default function AdminDashboard() {
               title="Latest submissions"
               action={
                 pending.length > 0 && (
-                  <Link to="/admin/queue" className="text-[12px] text-text-dim hover:text-text transition-colors duration-200 cursor-pointer">
+                  <Link to="/admin/queue" className="text-base text-text-dim hover:text-text transition-colors duration-200 cursor-pointer">
                     Review all
                   </Link>
                 )
               }
             >
               {pending.length === 0 ? (
-                <p className="px-6 py-10 text-[12.5px] text-muted text-center">Nothing pending</p>
+                <p className="px-6 py-10 text-base text-muted text-center">Nothing pending</p>
               ) : (
                 <div className="divide-y divide-border">
                   {pending.slice(0, 5).map((rice) => <RecentRow key={rice.id} rice={rice} />)}
@@ -57,7 +61,7 @@ export default function AdminDashboard() {
 
             <Panel title="Recently approved">
               {approved.length === 0 ? (
-                <p className="px-6 py-10 text-[12.5px] text-muted text-center">Nothing approved yet</p>
+                <p className="px-6 py-10 text-base text-muted text-center">Nothing approved yet</p>
               ) : (
                 <div className="divide-y divide-border">
                   {approved.slice(0, 5).map((rice) => <RecentRow key={rice.id} rice={rice} />)}

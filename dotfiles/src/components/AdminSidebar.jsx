@@ -63,7 +63,7 @@ function NavButton({ item, badge }) {
 
   if (item.soon) {
     return (
-      <span className="group w-full flex items-center gap-3 px-4 py-3 rounded-xl text-[13px] text-muted cursor-not-allowed">
+      <span className="group w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-muted cursor-not-allowed">
         <FontAwesomeIcon icon={item.icon} className="w-3.5 h-3.5 flex-shrink-0" />
         <span className="truncate">{item.label}</span>
         <span className="ml-auto px-2 py-1 rounded-md bg-surface-2 text-[9px] uppercase tracking-[0.12em] text-muted">
@@ -88,9 +88,9 @@ function NavButton({ item, badge }) {
 
 export default function AdminSidebar({ email, pendingCount, onSignOut }) {
   return (
-    <aside className="hidden lg:flex flex-col w-[272px] flex-shrink-0 h-screen sticky top-0 border-r border-border bg-surface">
-      <div className="px-6 py-7">
-        <img src={logo} alt="RiceHub" className="h-14 w-auto" />
+    <aside className="hidden lg:flex flex-col w-[272px] flex-shrink-0 h-screen sticky top-0 border-r border-border">
+      <div className="ml-4 mb-2">
+        <img src={logo} alt="RiceHub" className="h-12 w-auto" />
       </div>
 
       <nav className="flex-1 overflow-y-auto px-4 pb-6 flex flex-col gap-7">
@@ -114,8 +114,8 @@ export default function AdminSidebar({ email, pendingCount, onSignOut }) {
           View site
         </NavLink>
 
-        <div className="flex items-center gap-3 px-4 py-3">
-          <div className="w-9 h-9 rounded-xl border border-border flex items-center justify-center text-[12px] font-semibold text-accent flex-shrink-0">
+        <div className="flex items-center gap-3 ">
+          <div className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-[12px] font-semibold text-accent flex-shrink-0">
             {email?.[0]?.toUpperCase() ?? 'A'}
           </div>
           <div className="min-w-0 flex-1">
