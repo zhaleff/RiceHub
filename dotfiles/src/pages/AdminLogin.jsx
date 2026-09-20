@@ -96,7 +96,7 @@ export default function AdminLogin() {
         className="flex flex-col justify-between px-8 sm:px-14 py-14"
       >
         <div>
-          <img src={logo} alt="RiceHub" className="h-16 w-auto" />
+          <img src={logo} alt="RiceHub" className="h-10 w-auto" />
           <h1 className="text-7xl lg:text-7xl sm:text-6xl font-semibold tracking-tighter leading-[0.95] text-text">
             Review<br />the queue.
           </h1>
