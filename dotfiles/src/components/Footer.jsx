@@ -21,7 +21,7 @@ export default function Footer() {
     <footer className="border-t border-border mt-24">
       <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex items-center gap-3">
-          <img src={logo} alt="RiceHub" className="h-16 w-auto" />
+          <img src={logo} alt="RiceHub" className="h-12 mb-2 w-auto" />
           <span className="text-lg text-muted">
             Built by <span className="text-text-dim font-medium">Zhaleff</span> · © {year}
           </span>
