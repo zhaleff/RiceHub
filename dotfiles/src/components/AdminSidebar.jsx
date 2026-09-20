@@ -89,8 +89,8 @@ function NavButton({ item, badge }) {
 export default function AdminSidebar({ email, pendingCount, onSignOut }) {
   return (
     <aside className="hidden lg:flex flex-col w-[272px] flex-shrink-0 h-screen sticky top-0 border-r border-border">
-      <div className="ml-4 mb-2">
-        <img src={logo} alt="RiceHub" className="h-12 w-auto" />
+      <div className="ml-4 mb-4 mt-4">
+        <img src={logo} alt="RiceHub" className="h-8 w-auto" />
       </div>
 
       <nav className="flex-1 overflow-y-auto px-4 pb-6 flex flex-col gap-7">
