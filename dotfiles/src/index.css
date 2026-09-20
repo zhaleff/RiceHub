@@ -1,22 +1,18 @@
 @import "tailwindcss";
 
-@import "@fontsource/playfair-display/400.css";
-@import "@fontsource/playfair-display/600.css";
-@import "@fontsource/playfair-display/700.css";
-
 @theme {
   --color-accent: #F5F5F0;
   --color-accent-dim: #C9C9C0;
 
-  --color-surface: #0A0A0A;
-  --color-surface-2: #161616;
-  --color-surface-3: #212121;
+  --color-surface: #0B0B0A;
+  --color-surface-2: #171716;
+  --color-surface-3: #242422;
 
-  --color-border: #2E2E2E;
+  --color-border: #34342F;
 
   --color-text: #F5F5F0;
-  --color-text-dim: #9E9E96;
-  --color-muted: #616158;
+  --color-text-dim: #A0A098;
+  --color-muted: #8C8C80;
 }
 
 
