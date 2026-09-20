@@ -1,7 +1,7 @@
 import { useOutletContext } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
-import { RecentRow, Panel, EmptyState, PageHeader } from './ui'
+import { RecentRow, Panel, EmptyState, PageHeader } from './components/index.js'
 
 export default function AdminApproved() {
   const { approved, loading, reload } = useOutletContext()

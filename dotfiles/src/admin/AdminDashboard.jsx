@@ -2,11 +2,8 @@ import { useMemo } from 'react'
 import { Link, useOutletContext } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInbox, faCircleCheck, faThumbsUp, faChartSimple } from '@fortawesome/free-solid-svg-icons'
-import StatCard from './components/StatCard'
-import ActivityChart from './components/ActivityChart'
-import RecentRow from './components/RecentRow'
-import Panel from './components/Panel'
-import PageHeader from './components/PageHeader'
+
+import { RecentRow, Panel, PageHeader, ActivityChart, StatCard } from './components/index.js'
 
 export default function AdminDashboard() {
   const { pending, approved, loading, reload } = useOutletContext()

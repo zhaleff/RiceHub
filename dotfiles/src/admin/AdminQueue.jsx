@@ -2,9 +2,8 @@ import { useOutletContext } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
-import ReviewCard from './components/ReviewCard'
-import EmptyState from './components/EmptyState'
-import PageHeader from './components/PageHeader'
+
+import { PageHeader, EmptyState, ReviewCard } from "./components/index.js"
 import { EASE } from './components/tokens'
 
 export default function AdminQueue() {
