@@ -1,6 +1,6 @@
 {
-  "name": "Awesome Dotfiles",
-  "short_name": "AwesomeDotfiles",
+  "name": "RiceHub",
+  "short_name": "RiceHub",
   "description": "The central hub for Linux desktop configurations. Discover setups, color palettes, and dotfiles shared by the community.",
   "start_url": "/",
   "display": "standalone",
@@ -13,7 +13,7 @@
       "type": "image/png"
     },
     {
-      "src": "/favicon.png",
+      "src": "/favicon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
