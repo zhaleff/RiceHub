@@ -11,18 +11,21 @@ import toast from 'react-hot-toast'
 import SEO from '../components/SEO'
 
 const EASE = [0.16, 1, 0.3, 1]
-const FUNCTIONS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/vote`
+const VOTE_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/vote`
+const PANEL = 'rounded-xl bg-surface-2'
+                                                                                              
 
-function IconButton({ icon, label, active, onClick }) {
+function PillButton({ icon, label, active, small, onClick }) {
   return (
     <button
       onClick={onClick}
       className={clsx(
-        'flex items-center gap-2 px-5 h-11 rounded-full text-sm font-medium transition-colors duration-200 cursor-pointer',
+        'flex items-center gap-2 rounded-full transition-colors duration-200 cursor-pointer',
+        small ? 'px-4 h-9 text-xs' : 'px-7 h-14 text-sm font-medium',
         active ? 'bg-accent text-surface' : 'bg-surface-2 text-text-dim hover:text-text'
       )}
     >
-      <FontAwesomeIcon icon={icon} className="w-3.5 h-3.5" />
+      <FontAwesomeIcon icon={icon} className={small ? 'w-3 h-3' : 'w-3.5 h-3.5'} />
       {label}
     </button>
   )
@@ -30,29 +33,30 @@ function IconButton({ icon, label, active, onClick }) {
 
 function CopyButton({ text }) {
   const [copied, setCopied] = useState(false)
-  const handle = async () => {
-    await navigator.clipboard.writeText(text)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
+
+  useEffect(() => {
+    if (!copied) return
+    const timeout = setTimeout(() => setCopied(false), 2000)
+    return () => clearTimeout(timeout)
+  }, [copied])
+
   return (
-    <button
-      onClick={handle}
-      className="flex items-center gap-2 px-4 h-9 rounded-full bg-surface-2 text-text-dim hover:text-text transition-colors duration-200 text-xs cursor-pointer"
-    >
-      <FontAwesomeIcon icon={copied ? faCheck : faCopy} className="w-3 h-3" />
-      {copied ? 'Copied' : 'Copy'}
-    </button>
+    <PillButton
+      small
+      icon={copied ? faCheck : faCopy}
+      label={copied ? 'Copied' : 'Copy'}
+      onClick={() => navigator.clipboard.writeText(text).then(() => setCopied(true))}
+    />
   )
 }
 
 function Lightbox({ src, alt, onClose }) {
   useEffect(() => {
-    const h = (e) => { if (e.key === 'Escape') onClose() }
-    window.addEventListener('keydown', h)
+    const onKeyDown = (e) => e.key === 'Escape' && onClose()
+    window.addEventListener('keydown', onKeyDown)
     document.body.style.overflow = 'hidden'
     return () => {
-      window.removeEventListener('keydown', h)
+      window.removeEventListener('keydown', onKeyDown)
       document.body.style.overflow = ''
     }
   }, [onClose])
@@ -100,64 +104,66 @@ export default function RiceDetail() {
   const { slug } = useParams()
   const navigate = useNavigate()
 
-  const [rice, setRice] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [notFound, setNotFound] = useState(false)
+  const [rice, setRice] = useState()
   const [voted, setVoted] = useState(false)
   const [voting, setVoting] = useState(false)
   const [lightbox, setLightbox] = useState(false)
 
   useEffect(() => {
-    async function fetchRice() {
-      setLoading(true)
+    let ignore = false
+    setRice(undefined)
+
+    async function load() {
       try {
         const { data, error } = await supabase.from('rices').select('*').eq('slug', slug).single()
         if (error || !data) throw error
-
+        const { vote } = await fetch(`${VOTE_URL}?rice_id=${data.id}`).then((r) => r.json()).catch(() => ({}))
+        if (ignore) return
         setRice(data)
-
-        const voteRes = await fetch(`${FUNCTIONS_URL}?rice_id=${data.id}`)
-        const voteData = await voteRes.json()
-        setVoted(voteData.vote === 'up')
+        setVoted(vote === 'up')
       } catch {
-        setNotFound(true)
+        if (!ignore) setRice(null)
       }
-      setLoading(false)
     }
-    fetchRice()
+
+    load()
+    return () => { ignore = true }
   }, [slug])
 
   async function handleVote() {
-    if (voting || !rice) return
+    if (voting) return
     setVoting(true)
     try {
-      const res = await fetch(FUNCTIONS_URL, {
+      const res = await fetch(VOTE_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ rice_id: rice.id, vote_type: 'up' }),
       })
       const data = await res.json()
       if (data.error) throw new Error(data.error)
-
       setVoted(data.vote === 'up')
-      setRice((p) => ({ ...p, likes: data.likes }))
+      setRice((prev) => ({ ...prev, likes: data.likes }))
     } catch {
       toast.error('Failed to vote')
+    } finally {
+      setVoting(false)
     }
-    setVoting(false)
   }
 
   async function handleShare() {
     const url = window.location.href
-    if (navigator.share) {
-      try { await navigator.share({ title: rice.title, text: rice.title, url }) } catch { }
-    } else {
+    if (!navigator.share) {
       await navigator.clipboard.writeText(url)
-      toast.success('Link copied')
+      return toast.success('Link copied')
+    }
+    try {
+      await navigator.share({ title: rice.title, text: rice.title, url })
+    } catch (e) {
+      if (e.name !== 'AbortError') toast.error('Failed to share')
     }
   }
 
-  if (loading) {
+  if (rice === undefined) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <span className="w-8 h-8 rounded-full border-2 border-border border-t-accent animate-spin" />
@@ -165,7 +171,7 @@ export default function RiceDetail() {
     )
   }
 
-  if (notFound) {
+  if (rice === null) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4">
         <h1 className="text-7xl font-black text-muted/20">404</h1>
@@ -177,12 +183,13 @@ export default function RiceDetail() {
     )
   }
 
+  const authorName = rice.author || 'anonymous'
   const createdDate = rice.created_at ? new Date(rice.created_at) : null
   const details = [
     ['WM / DE', rice.wm],
     ['Distro', rice.distro],
     ['License', rice.license],
-    ['Published', createdDate ? format(createdDate, 'MMM d, yyyy') : null],
+    ['Published', createdDate && format(createdDate, 'MMM d, yyyy')],
   ]
 
   return (
@@ -193,7 +200,7 @@ export default function RiceDetail() {
 
       <SEO
         title={rice.title}
-        description={rice.description || `${rice.title} — a Linux desktop configuration by ${rice.author || 'anonymous'} using ${rice.wm || 'unknown'} on ${rice.distro || 'unknown'}.`}
+        description={rice.description || `${rice.title} — a Linux desktop configuration by ${authorName} using ${rice.wm || 'unknown'} on ${rice.distro || 'unknown'}.`}
         url={`/rice/${rice.slug}`}
         image={rice.image_url}
         type="article"
@@ -207,7 +214,7 @@ export default function RiceDetail() {
           '@type': 'Article',
           headline: rice.title,
           description: rice.description || `${rice.title} — Linux desktop configuration`,
-          author: { '@type': 'Person', name: rice.author || 'anonymous' },
+          author: { '@type': 'Person', name: authorName },
           image: rice.image_url,
           datePublished: rice.created_at,
         }}
@@ -247,40 +254,29 @@ export default function RiceDetail() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-12">
           <main>
             <div className="pb-8 mb-8 border-b border-border">
-              <div className="flex flex-wrap gap-2 mb-5">
-                {rice.wm && (
-                  <span className="px-4 py-1.5 rounded-full bg-surface-3 text-accent text-xs font-semibold">
-                    {rice.wm}
-                  </span>
-                )}
-                {rice.distro && (
-                  <span className="px-4 py-1.5 rounded-full bg-surface-2 text-text-dim text-xs font-medium">
-                    {rice.distro}
-                  </span>
-                )}
-              </div>
 
-              <h1 className="text-4xl md:text-5xl font-semibold tracking-tight leading-[1.05] text-text mb-6">
+
+              <h1 className="text-5xl md:text-6xl font-semibold tracking-tight leading-[1.05] text-text mb-6">
                 {rice.title}
               </h1>
 
-              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-text-dim mb-7">
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-lg text-text-dim mb-7">
                 <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-full bg-surface-2 flex items-center justify-center text-accent font-semibold text-xs">
+                  <div className="w-10 h-10 rounded-full bg-surface-2 flex items-center justify-center text-accent font-semibold text-base">
                     {rice.author?.[0]?.toUpperCase() ?? '?'}
                   </div>
-                  {rice.author ?? 'anonymous'}
+                  {authorName}
                 </div>
                 {createdDate && <span>{formatDistanceToNow(createdDate, { addSuffix: true })}</span>}
-                <div className="flex items-center gap-1.5">
-                  <FontAwesomeIcon icon={faEye} className="w-3 h-3" />
+                <div className="flex items-center gap-2">
+                  <FontAwesomeIcon icon={faEye} className="w-4 h-4" />
                   {rice.views ?? 0}
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-2">
-                <IconButton icon={faShareAlt} label="Share" onClick={handleShare} />
-                <IconButton icon={faThumbsUp} label={String(rice.likes ?? 0)} active={voted} onClick={handleVote} />
+              <div className="flex flex-wrap items-center gap-4">
+                <PillButton icon={faShareAlt} label="Share" onClick={handleShare} />
+                <PillButton icon={faThumbsUp} label={String(rice.likes ?? 0)} active={voted} onClick={handleVote} />
               </div>
             </div>
 
@@ -296,7 +292,7 @@ export default function RiceDetail() {
                   <span className="text-xs text-muted">Notes</span>
                   <CopyButton text={rice.notes} />
                 </div>
-                <div className="rounded-xl bg-surface-2 overflow-hidden">
+                <div className={clsx(PANEL, 'overflow-hidden')}>
                   <pre className="p-5 text-sm text-text-dim overflow-x-auto whitespace-pre-wrap leading-relaxed font-mono">
                     {rice.notes}
                   </pre>
@@ -306,13 +302,13 @@ export default function RiceDetail() {
           </main>
 
           <aside className="flex flex-col gap-4">
-            <div className="rounded-xl bg-surface-2 divide-y divide-border overflow-hidden">
+            <div className={clsx(PANEL, 'divide-y divide-border overflow-hidden')}>
               <div className="px-6 py-4 text-xs text-muted">Details</div>
               {details.map(([label, value]) => <DetailRow key={label} label={label} value={value} />)}
             </div>
 
             {rice.palette?.length > 0 && (
-              <div className="rounded-xl bg-surface-2 p-5">
+              <div className={clsx(PANEL, 'p-5')}>
                 <div className="text-xs text-muted mb-3.5">Palette</div>
                 <div className="flex flex-wrap gap-2.5">
                   {rice.palette.map((color, i) => (
@@ -333,7 +329,7 @@ export default function RiceDetail() {
                 href={rice.github_url}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center justify-center gap-2.5 px-5 h-12 rounded-xl bg-accent text-surface text-sm font-semibold hover:bg-accent-dim transition-colors duration-200 cursor-pointer"
+                className="flex items-center justify-center gap-2.5 px-5 h-12 rounded-xl bg-accent text-surface text-base font-semibold hover:bg-accent-dim transition-colors duration-200 cursor-pointer"
               >
                 <FontAwesomeIcon icon={faGithub} className="w-4 h-4" />
                 View dotfiles

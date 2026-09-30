@@ -25,7 +25,7 @@ export default function RiceCard({ rice, index = 0 }) {
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
-              <span className="text-sm text-muted">No preview</span>
+              <span className="text-base text-muted">No preview</span>
             </div>
           )}
 

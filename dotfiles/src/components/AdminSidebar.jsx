@@ -12,6 +12,7 @@ import {
   faDesktop,
   faGear,
   faKey,
+  faCloudArrowUp,
   faArrowRightFromBracket,
   faArrowUpRightFromSquare,
 } from '@fortawesome/free-solid-svg-icons'
@@ -46,6 +47,7 @@ export const NAV_SECTIONS = [
   {
     label: 'System',
     items: [
+      { id: 'backup', label: 'Backup', icon: faCloudArrowUp, to: '/admin/backup' },
       { id: 'access', label: 'Access keys', icon: faKey, soon: true, to: '/admin/access' },
       { id: 'settings', label: 'Settings', icon: faGear, soon: true, to: '/admin/settings' },
     ],

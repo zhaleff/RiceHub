@@ -6,12 +6,15 @@ import ScrollToTop from './components/ScrollToTop'
 const Home = lazy(() => import('./pages/Home'))
 const About = lazy(() => import('./pages/About'))
 const Submit = lazy(() => import('./pages/Submit'))
+const Privacy = lazy(() => import('./pages/Privacy'))
 const RiceDetail = lazy(() => import('./pages/RiceDetail'))
 const Gallery = lazy(() => import('./pages/Gallery'))
 const AdminLogin = lazy(() => import('./pages/AdminLogin'))
+
 const AdminLayout = lazy(() => import('./admin/AdminLayout'))
 const AdminDashboard = lazy(() => import('./admin/AdminDashboard'))
 const AdminQueue = lazy(() => import('./admin/AdminQueue'))
+const AdminBackup = lazy(() => import('./admin/AdminBackup'))
 const AdminApproved = lazy(() => import('./admin/AdminApproved'))
 
 
@@ -36,12 +39,14 @@ export default function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/submit" element={<Submit />} />
+                <Route path="/privacy" element={<Privacy />} />
                 <Route path="/rice/:slug" element={<RiceDetail />} />
                 <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/admin" element={<AdminLayout />}>
                   <Route index element={<Navigate to="/admin/dashboard" replace />} />
                   <Route path="dashboard" element={<AdminDashboard />} />
                   <Route path="queue" element={<AdminQueue />} />
+                  <Route path="backup" element={<AdminBackup />} />
                   <Route path="approved" element={<AdminApproved />} />
                 </Route>
               </Routes>
