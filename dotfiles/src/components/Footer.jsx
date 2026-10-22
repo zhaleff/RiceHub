@@ -4,7 +4,6 @@ import { faGithub, faRedditAlien } from '@fortawesome/free-brands-svg-icons'
 import logo from '../assets/ricehub.png'
 
 const LINKS = [
-  { label: 'Gallery', to: '/gallery' },
   { label: 'About', to: '/about' },
   { label: 'Submit your rice', to: '/submit' },
   { label: 'Privacy', to: '/privacy' },

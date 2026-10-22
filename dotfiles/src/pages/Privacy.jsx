@@ -40,7 +40,7 @@ export default function Privacy() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-32 pb-16">
         <SEO
           title="Privacy Policy"
-          description="How RiceHub collects, uses, and protects data submitted to the community gallery."
+          description="How RiceHub collects, uses, and protects data submitted to the community."
           url="/privacy"
           breadcrumbs={[
             { name: 'Home', url: '/' },
@@ -74,8 +74,8 @@ export default function Privacy() {
 
         <Section number="02" title="How we use it">
           <p className="text-lg text-text leading-relaxed">
-            Submitted content is reviewed manually before it appears in the public gallery. Approved rices
-            are shown to every visitor. We do not sell data, run ads, or share submissions with advertisers.
+            Submitted content is reviewed manually before it appears publicly. Approved rices are shown
+            to every visitor. We do not sell data, run ads, or share submissions with advertisers.
           </p>
         </Section>
 

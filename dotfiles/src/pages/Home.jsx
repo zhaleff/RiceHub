@@ -15,8 +15,8 @@ export default function Home() {
     <div className="max-w-6xl mx-auto px-4 sm:px-6">
       <Navbar />
       <SEO
-        title="RiceHub — Linux Dotfiles, Rices & Desktop Configurations Gallery"
-        description="Discover and share Linux desktop configurations, color palettes, and dotfiles from the community. Browse rices for Hyprland, i3, Sway, and more."
+        title="RiceHub — Linux Dotfiles, Rices & Desktop Configurations"
+        description="Discover and share Linux desktop configurations, color palettes, and dotfiles from the community. Browse setups for Hyprland, i3, Sway, and more."
         url="/"
         type="website"
         jsonLd={{
@@ -24,7 +24,7 @@ export default function Home() {
           '@type': 'WebSite',
           name: 'RiceHub',
           url: 'https://ricehubx.vercel.app',
-          description: 'Community gallery for Linux desktop configurations — dotfiles, rices, and color palettes for Hyprland, i3, Sway, bspwm, dwm, and more.',
+          description: 'Community hub for Linux desktop configurations — dotfiles, rices, and color palettes for Hyprland, i3, Sway, bspwm, dwm, and more.',
         }}
       />
       <section className="pt-36 pb-24">
@@ -44,8 +44,8 @@ export default function Home() {
           </div>
 
           <div className="flex flex-wrap gap-3">
-            <Button to="/gallery" icon={faArrowRight}>Browse gallery</Button>
-             <Button to="/submit" variant="secondary">Submit your rice</Button>
+            <Button to="/submit" icon={faArrowRight}>Submit your rice</Button>
+            <Button to="/about" variant="secondary">Learn more</Button>
           </div>
         </motion.div>
       </section>
@@ -61,7 +61,7 @@ export default function Home() {
             <p className="text-xl font-semibold text-text">Fresh from the community</p>
             <p className="text-base text-muted mt-0.5">New setups, added daily</p>
           </div>
-          <Button to="/gallery" variant="ghost" icon={faArrowRight}>View all</Button>
+          <Button to="/submit" variant="ghost" icon={faArrowRight}>Share your build</Button>
         </div>
 
         <RecentPreviews />

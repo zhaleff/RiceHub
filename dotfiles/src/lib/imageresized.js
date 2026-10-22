@@ -35,7 +35,7 @@ function resizeImage(file, { maxWidth, quality }) {
   })
 }
 
-// Small, heavily compressed — used in the gallery grid cards.
+// Small, heavily compressed — used in the image grid cards.
 export function makeThumbnail(file) {
   return resizeImage(file, { maxWidth: 600, quality: 0.6 })
 }

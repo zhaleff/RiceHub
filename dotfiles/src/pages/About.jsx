@@ -60,7 +60,7 @@ export default function About() {
       <Navbar />
       <SEO
         title="About"
-        description="Learn about RiceHub, a community-maintained gallery for Linux desktop configurations. Discover the tech stack, submission guidelines, and how to share your own rice."
+        description="Learn about RiceHub, a community hub for Linux desktop configurations. Discover the tech stack, submission guidelines, and how to share your own rice."
         url="/about"
         breadcrumbs={[
           { name: 'Home', url: '/' },
@@ -80,7 +80,7 @@ export default function About() {
 
       <Section number="01" title="What is this">
         <p className="text-lg text-text leading-relaxed">
-          RiceHub is a community-maintained gallery for Linux desktop configurations, what the ricing community calls "rices." Every setup here has been submitted by a real person and manually reviewed before going live.
+          RiceHub is a community hub for Linux desktop configurations, what the ricing community calls "rices." Every setup here has been submitted by a real person and manually reviewed before going live.
         </p>
         <p className="text-base text-text-dim leading-relaxed">
           Each entry comes with a screenshot, the window manager and distro it runs on, a color palette, and usually a direct link to the dotfiles on GitHub. You can browse, filter, vote, and get inspired, or submit your own setup and share it with the community.

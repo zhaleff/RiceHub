@@ -51,7 +51,7 @@ export default function SEO({
     description: DEFAULT_DESCRIPTION,
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${SITE_URL}/gallery?q={search_term_string}`,
+      target: `${SITE_URL}/?q={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
   }

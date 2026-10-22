@@ -177,7 +177,7 @@ export default function RiceDetail() {
         <h1 className="text-7xl font-black text-muted/20">404</h1>
         <p className="text-text-dim">This setup does not exist.</p>
         <button onClick={() => navigate('/')} className="text-accent text-sm cursor-pointer">
-          Back to gallery
+          Back to home
         </button>
       </div>
     )
@@ -206,7 +206,7 @@ export default function RiceDetail() {
         type="article"
         breadcrumbs={[
           { name: 'Home', url: '/' },
-          { name: 'Gallery', url: '/gallery' },
+          { name: 'Community builds', url: '/' },
           { name: rice.title },
         ]}
         jsonLd={{

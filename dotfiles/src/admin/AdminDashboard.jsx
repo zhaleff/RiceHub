@@ -29,7 +29,7 @@ export default function AdminDashboard() {
         <div className="flex flex-col gap-6">
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
             <StatCard icon={faInbox} label="In queue" value={stats.pending} hint="Waiting for review" delay={0} />
-            <StatCard icon={faCircleCheck} label="Approved" value={stats.approved} hint="Public in the gallery" delay={0.05} />
+            <StatCard icon={faCircleCheck} label="Approved" value={stats.approved} hint="Publicly listed" delay={0.05} />
             <StatCard icon={faThumbsUp} label="Likes" value={stats.likes} hint="Across approved rices" delay={0.1} />
             <StatCard icon={faChartSimple} label="Views" value={stats.views} hint="Total detail page hits" delay={0.15} />
           </div>

@@ -8,7 +8,6 @@ const About = lazy(() => import('./pages/About'))
 const Submit = lazy(() => import('./pages/Submit'))
 const Privacy = lazy(() => import('./pages/Privacy'))
 const RiceDetail = lazy(() => import('./pages/RiceDetail'))
-const Gallery = lazy(() => import('./pages/Gallery'))
 const AdminLogin = lazy(() => import('./pages/AdminLogin'))
 
 const AdminLayout = lazy(() => import('./admin/AdminLayout'))
@@ -35,7 +34,6 @@ export default function App() {
           <main className="flex-1">
             <Suspense fallback={<PageLoader />}>
               <Routes>
-                <Route path="/gallery" element={<Gallery />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/submit" element={<Submit />} />

@@ -11,7 +11,6 @@ import logo from "../assets/ricehub.png";
 import clsx from "clsx";
 
 const navLinks = [
-  { label: "Gallery", to: "/gallery" },
   { label: "About", to: "/about" },
 ];
 
