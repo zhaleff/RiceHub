@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useDropzone } from 'react-dropzone'
 import { Turnstile } from '@marsidev/react-turnstile'
@@ -85,30 +85,40 @@ function formatCountdown(total) {
 // Advisory gate only. The authoritative limit is enforced server-side by
 // `record_submission_attempt` inside the submit-rice function, so a network
 // failure here fails open instead of locking out a legitimate user.
+async function fetchRateLimit() {
+  try {
+    const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/rate-limit`, {
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+        apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
+      },
+    })
+    if (!res.ok) throw new Error('rate-limit unavailable')
+    const data = await res.json()
+    return {
+      loading: false,
+      allowed: data.allowed === false ? false : true,
+      seconds: Number(data.retry_after_seconds) || 0,
+    }
+  } catch {
+    return { loading: false, allowed: true, seconds: 0 }
+  }
+}
+
 function useRateLimit() {
   const [state, setState] = useState({ loading: true, allowed: true, seconds: 0 })
 
   const recheck = useCallback(async () => {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/rate-limit`, {
-        headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-          apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
-        },
-      })
-      if (!res.ok) throw new Error('rate-limit unavailable')
-      const data = await res.json()
-      setState({
-        loading: false,
-        allowed: data.allowed === false ? false : true,
-        seconds: Number(data.retry_after_seconds) || 0,
-      })
-    } catch {
-      setState({ loading: false, allowed: true, seconds: 0 })
-    }
+    setState(await fetchRateLimit())
   }, [])
 
-  useEffect(() => { recheck() }, [recheck])
+  useEffect(() => {
+    let cancelled = false
+    fetchRateLimit().then((next) => {
+      if (!cancelled) setState(next)
+    })
+    return () => { cancelled = true }
+  }, [])
 
   const blocked = !state.allowed && state.seconds > 0
   useEffect(() => {
@@ -286,13 +296,13 @@ export default function Submit() {
   const [colorInput, setColorInput] = useState('#')
   const [token, setToken] = useState(null)
 
-  const { register, handleSubmit, watch, trigger, setValue, clearErrors, formState: { errors } } = useForm({
+  const { control, register, handleSubmit, trigger, setValue, clearErrors, formState: { errors } } = useForm({
     defaultValues: { wm: '', distro: '', license: '' },
   })
 
   const rateLimit = useRateLimit()
   const image = useImageUpload()
-  const values = watch()
+  const values = useWatch({ control })
 
   for (const field of CHIP_FIELDS) register(field.name, { required: field.required })
 
