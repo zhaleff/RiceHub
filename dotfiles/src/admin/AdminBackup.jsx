@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCloudArrowUp, faArrowUpRightFromSquare, faCircleCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import toast from 'react-hot-toast'
@@ -9,24 +9,36 @@ import { PageHeader, Panel, BTN_SOLID } from './components'
 const BACKUP_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/backup`
 const REPO_URL = 'https://github.com/zhaleff/ricehub-backup'
 
+async function fetchLatestLog() {
+  return supabase
+    .from('backup_log')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+}
+
 export default function AdminBackup() {
   const [log, setLog] = useState(null)
   const [loading, setLoading] = useState(true)
   const [running, setRunning] = useState(false)
 
-  async function loadLatest() {
+  const loadLatest = useCallback(async () => {
     setLoading(true)
-    const { data, error } = await supabase
-      .from('backup_log')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .limit(1)
-      .maybeSingle()
+    const { data, error } = await fetchLatestLog()
     if (!error) setLog(data)
     setLoading(false)
-  }
+  }, [])
 
-  useEffect(() => { loadLatest() }, [])
+  useEffect(() => {
+    let cancelled = false
+    fetchLatestLog().then(({ data, error }) => {
+      if (cancelled) return
+      if (!error) setLog(data)
+      setLoading(false)
+    })
+    return () => { cancelled = true }
+  }, [])
 
   async function runBackup() {
     setRunning(true)
