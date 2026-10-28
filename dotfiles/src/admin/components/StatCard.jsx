@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { EASE } from './tokens'
 
 export default function StatCard({ icon, label, value, hint, delay = 0 }) {
