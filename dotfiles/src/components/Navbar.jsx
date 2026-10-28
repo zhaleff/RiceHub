@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,6 +11,7 @@ import logo from "../assets/ricehub.png";
 import clsx from "clsx";
 
 const navLinks = [
+  { label: "Gallery", to: "/gallery"},
   { label: "About", to: "/about" },
 ];
 
@@ -18,10 +19,11 @@ const EMPHASIZED = [0.05, 0.7, 0.1, 1];
 const STANDARD = [0.2, 0, 0, 1];
 const ISLAND = "h-14 rounded-full bg-surface-2 border border-border";
 
-function CtaButton({ className }) {
+function CtaButton({ className, onClick }) {
   return (
     <Link
       to="/submit"
+      onClick={onClick}
       className={clsx(
         "group flex items-center gap-2 px-6 font-semibold text-surface bg-white bg-hover:bg-accent-dim transition-colors duration-200 cursor-pointer",
         ISLAND,
@@ -39,11 +41,6 @@ function CtaButton({ className }) {
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const location = useLocation();
-
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [location.pathname]);
 
   return (
     <>
@@ -154,6 +151,7 @@ export default function Navbar() {
                 >
                   <NavLink
                     to={to}
+                    onClick={() => setMobileOpen(false)}
                     className={({ isActive }) =>
                       clsx(
                         "flex items-center px-6 py-4 rounded-2xl text-lg font-semibold transition-colors duration-200 cursor-pointer",
@@ -177,7 +175,7 @@ export default function Navbar() {
                 }}
                 className="mt-2 pt-4 border-t border-border"
               >
-                <CtaButton className="justify-center w-full text-lg active:scale-[0.98] transition-transform" />
+                <CtaButton className="justify-center w-full text-lg active:scale-[0.98] transition-transform" onClick={() => setMobileOpen(false)} />
               </motion.div>
             </nav>
           </motion.div>
