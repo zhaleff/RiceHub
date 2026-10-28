@@ -90,7 +90,7 @@ export default function RiceGrid({ defaultSort = 'recent' }) {
           .order(field, { ascending: false })
           .limit(48)
         if (error) throw error
-        setRices(data)
+        setRices(sort === 'random' ? [...data].sort(() => Math.random() - 0.5) : data)
       } catch (err) {
         console.error(err)
       } finally {
@@ -101,7 +101,7 @@ export default function RiceGrid({ defaultSort = 'recent' }) {
   }, [sort])
 
   const filtered = useMemo(() => {
-    let result = sort === 'random' ? [...rices].sort(() => Math.random() - 0.5) : rices
+    let result = rices
     if (wm !== 'All') result = result.filter((r) => r.wm === wm)
     if (distro !== 'All') result = result.filter((r) => r.distro === distro)
     if (search.trim()) {
@@ -111,7 +111,7 @@ export default function RiceGrid({ defaultSort = 'recent' }) {
       )
     }
     return result
-  }, [rices, sort, wm, distro, search])
+  }, [rices, wm, distro, search])
 
   const hasFilters = wm !== 'All' || distro !== 'All' || search.trim() !== ''
   const clearAll = () => { setWm('All'); setDistro('All'); setSearch('') }
