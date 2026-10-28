@@ -19,7 +19,7 @@ import {
 import clsx from 'clsx'
 import logo from '../assets/ricehub.png'
 
-export const NAV_SECTIONS = [
+const NAV_SECTIONS = [
   {
     label: 'Overview',
     items: [

@@ -8,32 +8,52 @@ import SEO from '../components/SEO'
 
 const RICE_FIELDS = 'id, slug, title, author, description, wm, distro, palette, github_url, thumbnail_url, image_url, likes, views, created_at'
 
-export function useAdminData() {
+function useAdminData() {
   const [pending, setPending] = useState([])
   const [approved, setApproved] = useState([])
   const [loading, setLoading] = useState(true)
 
-  const load = useCallback(async () => {
+  const fetchRows = useCallback(async () => {
+    const [pendingRes, approvedRes] = await Promise.all([
+      supabase.from('rices').select(RICE_FIELDS).eq('status', 'pending').order('created_at', { ascending: false }),
+      supabase.from('rices').select(RICE_FIELDS).eq('status', 'approved').order('created_at', { ascending: false }).limit(200),
+    ])
+    if (pendingRes.error) throw pendingRes.error
+    if (approvedRes.error) throw approvedRes.error
+    return { pending: pendingRes.data ?? [], approved: approvedRes.data ?? [] }
+  }, [])
+
+  const reload = useCallback(async () => {
     setLoading(true)
     try {
-      const [pendingRes, approvedRes] = await Promise.all([
-        supabase.from('rices').select(RICE_FIELDS).eq('status', 'pending').order('created_at', { ascending: false }),
-        supabase.from('rices').select(RICE_FIELDS).eq('status', 'approved').order('created_at', { ascending: false }).limit(200),
-      ])
-      if (pendingRes.error) throw pendingRes.error
-      if (approvedRes.error) throw approvedRes.error
-      setPending(pendingRes.data ?? [])
-      setApproved(approvedRes.data ?? [])
+      const rows = await fetchRows()
+      setPending(rows.pending)
+      setApproved(rows.approved)
     } catch {
       toast.error('Failed to load submissions.')
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [fetchRows])
 
-  useEffect(() => { load() }, [load])
+  useEffect(() => {
+    let cancelled = false
+    fetchRows()
+      .then((rows) => {
+        if (cancelled) return
+        setPending(rows.pending)
+        setApproved(rows.approved)
+      })
+      .catch(() => {
+        if (!cancelled) toast.error('Failed to load submissions.')
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false)
+      })
+    return () => { cancelled = true }
+  }, [fetchRows])
 
-  return { pending, approved, loading, reload: load, setPending, setApproved }
+  return { pending, approved, loading, reload, setPending, setApproved }
 }
 
 export default function AdminLayout() {
