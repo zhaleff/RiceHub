@@ -105,13 +105,13 @@ export default function RiceDetail() {
   const navigate = useNavigate()
 
   const [rice, setRice] = useState()
+  const [loadedSlug, setLoadedSlug] = useState()
   const [voted, setVoted] = useState(false)
   const [voting, setVoting] = useState(false)
   const [lightbox, setLightbox] = useState(false)
 
   useEffect(() => {
     let ignore = false
-    setRice(undefined)
 
     async function load() {
       try {
@@ -121,8 +121,12 @@ export default function RiceDetail() {
         if (ignore) return
         setRice(data)
         setVoted(vote === 'up')
+        setLoadedSlug(slug)
       } catch {
-        if (!ignore) setRice(null)
+        if (!ignore) {
+          setRice(null)
+          setLoadedSlug(slug)
+        }
       }
     }
 
@@ -163,7 +167,7 @@ export default function RiceDetail() {
     }
   }
 
-  if (rice === undefined) {
+  if (loadedSlug !== slug || rice === undefined) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <span className="w-8 h-8 rounded-full border-2 border-border border-t-accent animate-spin" />
