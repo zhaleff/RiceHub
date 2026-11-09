@@ -9,6 +9,7 @@ const Submit = lazy(() => import('./pages/Submit'))
 const Privacy = lazy(() => import('./pages/Privacy'))
 const RiceDetail = lazy(() => import('./pages/RiceDetail'))
 const AdminLogin = lazy(() => import('./pages/AdminLogin'))
+const Gallery = lazy(() => import('./pages/Gallery'))
 
 const AdminLayout = lazy(() => import('./admin/AdminLayout'))
 const AdminDashboard = lazy(() => import('./admin/AdminDashboard'))
@@ -38,6 +39,7 @@ export default function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/submit" element={<Submit />} />
                 <Route path="/privacy" element={<Privacy />} />
+                <Route path="/gallery" element={<Gallery />} />
                 <Route path="/rice/:slug" element={<RiceDetail />} />
                 <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/admin" element={<AdminLayout />}>
