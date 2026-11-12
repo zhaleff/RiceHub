@@ -3,13 +3,15 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { AuthProvider } from './context/AuthContext'
 import ScrollToTop from './components/ScrollToTop'
-const Home = lazy(() => import('./pages/Home'))
-const About = lazy(() => import('./pages/About'))
-const Submit = lazy(() => import('./pages/Submit'))
-const Privacy = lazy(() => import('./pages/Privacy'))
-const RiceDetail = lazy(() => import('./pages/RiceDetail'))
-const AdminLogin = lazy(() => import('./pages/AdminLogin'))
-const Gallery = lazy(() => import('./pages/Gallery'))
+const Home = lazy(() => import('./pages/home/Home'))
+const About = lazy(() => import('./pages/about/About'))
+const Submit = lazy(() => import('./pages/submit/Submit'))
+const Privacy = lazy(() => import('./pages/legal/Privacy'))
+const Cookies = lazy(() => import('./pages/legal/Cookies'))
+const Terms = lazy(() => import('./pages/legal/Terms'))
+const RiceDetail = lazy(() => import('./pages/rice-detail/RiceDetail'))
+const AdminLogin = lazy(() => import('./pages/admin-login/AdminLogin'))
+const Gallery = lazy(() => import('./pages/gallery/Gallery'))
 
 const AdminLayout = lazy(() => import('./admin/AdminLayout'))
 const AdminDashboard = lazy(() => import('./admin/AdminDashboard'))
@@ -38,7 +40,11 @@ export default function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/submit" element={<Submit />} />
-                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/privacy" element={<Navigate to="/legal/privacy" replace />} />
+                <Route path="/legal" element={<Navigate to="/legal/terms" replace />} />
+                <Route path="/legal/terms" element={<Terms />} />
+                <Route path="/legal/privacy" element={<Privacy />} />
+                <Route path="/legal/cookies" element={<Cookies />} />
                 <Route path="/gallery" element={<Gallery />} />
                 <Route path="/rice/:slug" element={<RiceDetail />} />
                 <Route path="/admin/login" element={<AdminLogin />} />

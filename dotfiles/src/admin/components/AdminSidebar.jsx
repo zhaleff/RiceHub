@@ -17,7 +17,7 @@ import {
   faArrowUpRightFromSquare,
 } from '@fortawesome/free-solid-svg-icons'
 import clsx from 'clsx'
-import logo from '../assets/ricehub.png'
+import logo from '../../assets/ricehub.png'
 
 const NAV_SECTIONS = [
   {

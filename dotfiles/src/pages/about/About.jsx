@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
-import SEO from '../components/SEO'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
+import SEO from '../../components/SEO'
+import Navbar from '../../components/Navbar'
+import Footer from '../../components/Footer'
 
 const EASE = [0.22, 1, 0.36, 1]
 

@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
-import RiceGrid from '../components/RiceGrid'
-import SEO from '../components/SEO'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
+import RiceGrid from '../../components/RiceGrid'
+import SEO from '../../components/SEO'
+import Navbar from '../../components/Navbar'
+import Footer from '../../components/Footer'
 
 export default function CommunityBuilds() {
   return (

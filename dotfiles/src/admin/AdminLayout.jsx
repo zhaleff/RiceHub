@@ -3,7 +3,7 @@ import { Navigate, Outlet, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/auth-context'
-import AdminSidebar from '../components/AdminSidebar'
+import AdminSidebar from './components/AdminSidebar'
 import SEO from '../components/SEO'
 
 const RICE_FIELDS = 'id, slug, title, author, description, wm, distro, palette, github_url, thumbnail_url, image_url, likes, views, created_at'

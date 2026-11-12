@@ -9,11 +9,11 @@ const mocks = vi.hoisted(() => ({
   single: vi.fn(),
 }))
 
-vi.mock('../lib/supabase', () => ({
+vi.mock('../../lib/supabase', () => ({
   supabase: { from: mocks.from },
 }))
 
-vi.mock('../components/SEO', () => ({
+vi.mock('../../components/SEO', () => ({
   default: () => null,
 }))
 

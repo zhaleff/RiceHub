@@ -6,7 +6,9 @@ import logo from '../assets/ricehub.png'
 const LINKS = [
   { label: 'About', to: '/about' },
   { label: 'Submit your rice', to: '/submit' },
-  { label: 'Privacy', to: '/privacy' },
+  { label: 'Terms', to: '/legal/terms' },
+  { label: 'Privacy', to: '/legal/privacy' },
+  { label: 'Cookies', to: '/legal/cookies' },
 ]
 
 const SOCIALS = [

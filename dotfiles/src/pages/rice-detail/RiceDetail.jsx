@@ -2,103 +2,18 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft, faEye, faCopy, faCheck, faThumbsUp, faShareAlt, faExpand, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faEye, faThumbsUp, faShareAlt, faExpand } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
-import { supabase } from '../lib/supabase'
 import { formatDistanceToNow, format } from 'date-fns'
 import clsx from 'clsx'
 import toast from 'react-hot-toast'
-import SEO from '../components/SEO'
-
-const EASE = [0.16, 1, 0.3, 1]
-const VOTE_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/vote`
-const PANEL = 'rounded-xl bg-surface-2'
-                                                                                              
-
-function PillButton({ icon, label, active, small, onClick }) {
-  return (
-    <button
-      onClick={onClick}
-      className={clsx(
-        'flex items-center gap-2 rounded-full transition-colors duration-200 cursor-pointer',
-        small ? 'px-4 h-9 text-xs' : 'px-7 h-14 text-sm font-medium',
-        active ? 'bg-accent text-surface' : 'bg-surface-2 text-text-dim hover:text-text'
-      )}
-    >
-      <FontAwesomeIcon icon={icon} className={small ? 'w-3 h-3' : 'w-3.5 h-3.5'} />
-      {label}
-    </button>
-  )
-}
-
-function CopyButton({ text }) {
-  const [copied, setCopied] = useState(false)
-
-  useEffect(() => {
-    if (!copied) return
-    const timeout = setTimeout(() => setCopied(false), 2000)
-    return () => clearTimeout(timeout)
-  }, [copied])
-
-  return (
-    <PillButton
-      small
-      icon={copied ? faCheck : faCopy}
-      label={copied ? 'Copied' : 'Copy'}
-      onClick={() => navigator.clipboard.writeText(text).then(() => setCopied(true))}
-    />
-  )
-}
-
-function Lightbox({ src, alt, onClose }) {
-  useEffect(() => {
-    const onKeyDown = (e) => e.key === 'Escape' && onClose()
-    window.addEventListener('keydown', onKeyDown)
-    document.body.style.overflow = 'hidden'
-    return () => {
-      window.removeEventListener('keydown', onKeyDown)
-      document.body.style.overflow = ''
-    }
-  }, [onClose])
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      onClick={onClose}
-      className="fixed inset-0 z-[100] bg-surface/95 flex items-center justify-center p-6 overflow-auto"
-    >
-      <motion.img
-        initial={{ scale: 0.97, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.98, opacity: 0 }}
-        transition={{ duration: 0.25, ease: EASE }}
-        src={src}
-        alt={alt}
-        onClick={(e) => e.stopPropagation()}
-        className="max-w-[95vw] max-h-[95vh] w-auto h-auto object-contain rounded-2xl"
-      />
-      <button
-        onClick={onClose}
-        aria-label="Close"
-        className="fixed top-6 right-6 w-12 h-12 rounded-full bg-surface-2 text-text-dim hover:text-text transition-colors duration-200 cursor-pointer"
-      >
-        <FontAwesomeIcon icon={faXmark} />
-      </button>
-    </motion.div>
-  )
-}
-
-function DetailRow({ label, value }) {
-  if (!value) return null
-  return (
-    <div className="px-6 py-4">
-      <p className="text-xs text-muted mb-1">{label}</p>
-      <p className="text-sm text-text">{value}</p>
-    </div>
-  )
-}
+import { supabase } from '../../lib/supabase'
+import SEO from '../../components/SEO'
+import { EASE, VOTE_URL, PANEL } from './constants'
+import PillButton from './components/PillButton'
+import CopyButton from './components/CopyButton'
+import Lightbox from './components/Lightbox'
+import DetailRow from './components/DetailRow'
 
 export default function RiceDetail() {
   const { slug } = useParams()
@@ -258,8 +173,6 @@ export default function RiceDetail() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-12">
           <main>
             <div className="pb-8 mb-8 border-b border-border">
-
-
               <h1 className="text-5xl md:text-6xl font-semibold tracking-tight leading-[1.05] text-text mb-6">
                 {rice.title}
               </h1>
